@@ -1,6 +1,5 @@
 #import <iostream>
 #import <string>
-#import "IOHelper.hpp"
 #import "distanceMath.hpp"
 #import "mathHelper.hpp"
 
@@ -33,7 +32,7 @@ int main(){
 	startLat = SignLat(startLatDirection, startLat);
 	startLong = SignLong(startLongDirection, startLong);
 
-	targetLocations = inputTargetLocations();
+	std::cin >> targetLocations;
 
 	for (int i=0; i < targetLocations; i++){
 		double currentLat; std::string currentLatDirection;
