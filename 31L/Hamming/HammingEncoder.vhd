@@ -1,0 +1,42 @@
+--------------------------Hamming-Decoder------------------------
+LIBRARY IEEE;
+	USE IEEE.STD_LOGIC_1164.ALL;
+-----------------------------------------------------------------
+ENTITY HD IS
+	PORT(DIN: IN STD_LOGIC_VECTOR (1 TO 15); 
+	     DOUT: OUT STD_LOGIC_VECTOR(1 TO 11);
+	     NO_ERROR, SINGLE_ERROR, PARITY_ERROR : OUT STD_LOGIC);
+END HD;
+-----------------------------------------------------------------
+ARCHITECTURE HD OF HD IS
+SIGNAL P: STD_LOGIC_VECTOR (1 TO 4);
+BEGIN
+	P(1) <= DIN(1) XOR DIN(3) XOR DIN(5) XOR DIN(7) XOR DIN(9) XOR DIN(11) XOR
+		DIN(13) XOR DIN(15);
+	P(2) <= DIN(2) XOR DIN(3) XOR DIN(6) XOR DIN(7) XOR DIN(10) XOR DIN(11) XOR
+		DIN(14) XOR DIN(15);
+	P(3) <= DIN(4) XOR DIN(5) XOR DIN(6) XOR DIN(7) XOR DIN(12) XOR DIN(13) XOR
+		DIN(14) XOR DIN(15);
+	P(4) <= DIN(8) XOR DIN(9) XOR DIN(10) XOR DIN(11) XOR DIN(12) XOR DIN(13) XOR
+		DIN(14) XOR DIN(15);
+	
+	NO_ERROR <= '1' WHEN (P="0000") ELSE '0';
+	SINGLE_ERROR <= '0' WHEN (P="0000") ELSE '1';
+	PARITY_ERROR <= '1' WHEN (P="0001" OR P="0010" OR P="0100" OR P="1000")
+				ELSE '0';
+
+	DOUT <= DIN(3) & DIN(5 TO 7) & DIN(9 TO 15) 	WHEN (P="0000" OR P="0001" OR P="0010"
+							OR P="0100" OR P="1000") ELSE 
+	NOT DIN(3) & DIN(5 TO 7) & DIN(9 TO 15) 			  WHEN (P="0011") ELSE
+	DIN(3) & NOT DIN(5) & DIN(6 TO 7) & DIN(9 TO 15) 		  WHEN (P="0101") ELSE
+	DIN(3) & DIN(5) & NOT DIN(6) & DIN(7) & DIN(9 TO 15) 		  WHEN (P="0110") ELSE
+	DIN(3) & DIN(5 TO 6) & NOT DIN(7) & DIN(9 TO 15) 		  WHEN (P="0111") ELSE
+	DIN(3) & DIN(5 TO 7) & NOT DIN(9) & DIN(10 TO 15) 		  WHEN (P="1001") ELSE
+	DIN(3) & DIN(5 TO 7) & DIN(9) & NOT DIN(10) & DIN(11 TO 15)       WHEN (P="1010") ELSE
+	DIN(3) & DIN(5 TO 7) & DIN(9 TO 10) & NOT DIN(11) & DIN(12 TO 15) WHEN (P="1011") ELSE
+	DIN(3) & DIN(5 TO 7) & DIN(9 TO 11) & NOT DIN(12) & DIN(13 TO 15) WHEN (P="1100") ELSE
+	DIN(3) & DIN(5 TO 7) & DIN(9 TO 12) & NOT DIN(13) & DIN(14 TO 15) WHEN (P="1101") ELSE
+	DIN(3) & DIN(5 TO 7) & DIN(9 TO 13) & NOT DIN(14) & DIN(15)       WHEN (P="1110") ELSE
+	DIN(3) & DIN(5 TO 7) & DIN(9 TO 14) & NOT DIN(15);
+	
+END HD;
