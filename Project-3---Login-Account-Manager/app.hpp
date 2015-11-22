@@ -1,7 +1,7 @@
 #ifndef APP_HPP
 #define APP_HPP
 
-#include "HashMap.hpp"
+#include "Hash-Map.hpp"
 
 class Application
 {
