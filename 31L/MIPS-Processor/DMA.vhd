@@ -24,7 +24,7 @@ COMPONENT rom IS
 	PORT (clk: IN BIT; 
 	      address: IN STD_LOGIC_VECTOR (ABIT-1 DOWNTO 0);
 	      data_out: OUT STD_LOGIC_VECTOR(NBIT-1 DOWNTO 0));
-END COMPONENT;
+END rom;
 BEGIN
 	PROCESS (clk, rst) BEGIN
 		IF (rst='0') THEN
