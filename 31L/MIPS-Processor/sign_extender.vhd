@@ -1,0 +1,22 @@
+-------------------------SIGN EXTENDER----------------------
+LIBRARY IEEE;
+	USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY sign_ext32 IS
+	GENERIC(NBIT: INTEGER := 15);
+	PORT (  din : IN STD_LOGIC_VECTOR(NBIT-1 DOWNTO 0);
+		dout: OUT STD_LOGIC_VECTOR (31 DOWNTO 0));
+END ENTITY;
+ARCHITECTURE conc OF sign_ext32 is
+	SIGNAL msb : STD_LOGIC;
+BEGIN
+	msb <= din(NBIT-1);
+	reassign : FOR I IN NBIT-1 DOWNTO 0 GENERATE
+	BEGIN
+		dout(I) <= din(I);
+	END GENERATE;
+	msb_reassign : FOR I IN 31 DOWNTO NBIT GENERATE
+	BEGIN
+		dout(I) <= msb;
+	END GENERATE;
+END ARCHITECTURE;
