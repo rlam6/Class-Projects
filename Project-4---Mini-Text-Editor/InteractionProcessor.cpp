@@ -6,8 +6,6 @@
 #include "EditorException.hpp"
 #include "Interaction.hpp"
 
-// This function implements command execution, but does not handle "undo"
-// and "redo"; you'll need to add that handling.
 
 void InteractionProcessor::run()
 {
@@ -87,13 +85,6 @@ void InteractionProcessor::run()
 
 
             view.refresh();
-
-            // Note that you'll want to be more careful about when you delete
-            // commands once you implement undo and redo.  For now, since
-            // neither is implemented, I've just deleted it immediately
-            // after executing it.  You'll need to wait to delete it until
-            // you don't need it anymore.
-            // delete command;
         }
     }
     for (int i = 0; i < redoList.size(); i++){
