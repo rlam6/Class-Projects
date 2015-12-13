@@ -27,10 +27,6 @@ public:
     Command* command() const { return command_; }
 
 private:
-    // A private constructor may seem like a strange thing to include in
-    // a class, but I've done this so that the only way to create an
-    // Interaction is using the static, public member functions defined
-    // above.
     Interaction(InteractionType type, Command* command)
         : type_{type}, command_{command}
     {
