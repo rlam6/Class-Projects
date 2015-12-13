@@ -2,7 +2,7 @@
 // Implementation of the BooEdit class
 //
 // DO NOT MODIFY THIS FILE
-// THIS FILE BELONGS TO THE ICS45C INSTRUCTOR - ALEX THRONTON
+// THIS FILE BELONGS TO THE INSTRUCTOR - ALEX THRONTON
 
 #include "BooEdit.hpp"
 #include "InteractionProcessor.hpp"
