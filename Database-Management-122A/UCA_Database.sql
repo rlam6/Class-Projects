@@ -85,37 +85,37 @@ CREATE TABLE employee (
 
 -- Table structure for Maintenance Engineers
 CREATE TABLE maintenance_engineer (
-	eid INTEGER,
+	`mid` INTEGER,
     skill VARCHAR(100),
-    PRIMARY KEY (eid),
-    FOREIGN KEY (eid) REFERENCES employee(eid)
+    PRIMARY KEY (`mid`),
+    FOREIGN KEY (`mid`) REFERENCES employee(eid)
 		ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Table structure for Pilots
 CREATE TABLE pilot (
-	eid INTEGER,
+	pid INTEGER,
     since INTEGER,
-    PRIMARY KEY (eid),
-    FOREIGN KEY (eid) REFERENCES employee(eid)
+    PRIMARY KEY (pid),
+    FOREIGN KEY (pid) REFERENCES employee(eid)
 		ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Table structure for Flight Attendants
 CREATE TABLE flight_attendant (
-	eid INTEGER,
+	fid INTEGER,
     service_year INTEGER,
-    PRIMARY KEY (eid),
-    FOREIGN KEY (eid) REFERENCES employee(eid)
+    PRIMARY KEY (fid),
+    FOREIGN KEY (fid) REFERENCES employee(eid)
 		ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Table structure for Operation Staff
 CREATE TABLE operation_staff (
-	eid INTEGER,
+	osid INTEGER,
     department VARCHAR(50),
-    PRIMARY KEY (eid),
-    FOREIGN KEY (eid) REFERENCES employee(eid)
+    PRIMARY KEY (osid),
+    FOREIGN KEY (osid) REFERENCES employee(eid)
 		ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -173,7 +173,6 @@ CREATE TABLE dish_order (
     PRIMARY KEY (oid),
     FOREIGN KEY (lounge_id) REFERENCES lounge(lounge_id),
     FOREIGN KEY (cid) REFERENCES customer(cid)
-		ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -190,32 +189,32 @@ CREATE TABLE dish_order (
 -- Table structure for "Maintains"
 -- Maintenance Engineer ---(M)---  <Maintains>  ---(N)--- Airplane
 CREATE TABLE `maintains` (
-	`eid` INTEGER,				-- MUST be maintenance engineer
+	`mid` INTEGER,				-- MUST be maintenance engineer
     `reg_num` VARCHAR(20),
-    PRIMARY KEY (eid, reg_num),
-    FOREIGN KEY (eid) REFERENCES maintenance_engineer(eid),
+    PRIMARY KEY (`mid`, reg_num),
+    FOREIGN KEY (`mid`) REFERENCES maintenance_engineer(`mid`),
     FOREIGN KEY (reg_num) REFERENCES airplane(reg_num)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Table structure for "Operates"
 -- Pilot ---(M)---  <Operates>  ---(N)--- Flight
 CREATE TABLE `operates` (
-	`eid` INTEGER, 				-- MUST be a pilot
+	`pid` INTEGER, 				-- MUST be a pilot
     `proj_depart` DATETIME,
     `flight_num` VARCHAR(20),
-    PRIMARY KEY (eid, proj_depart, flight_num),
-    FOREIGN KEY (eid) REFERENCES pilot(eid),
+    PRIMARY KEY (`pid`, proj_depart, flight_num),
+    FOREIGN KEY (`pid`) REFERENCES pilot(`pid`),
     FOREIGN KEY (proj_depart, flight_num) REFERENCES flight(proj_depart, flight_num)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Table structure for "Participates"
 -- Flight Attendant ---(M)---  <participates>  ---(N)--- Flight
 CREATE TABLE `participates` (
-	`eid` INTEGER, 				-- MUST be a flight attendant
+	fid INTEGER, 				-- MUST be a flight attendant
     `proj_depart` DATETIME,
     `flight_num` VARCHAR(20),
-    PRIMARY KEY (eid, proj_depart, flight_num),
-    FOREIGN KEY (eid) REFERENCES flight_attendant(eid),
+    PRIMARY KEY (fid, proj_depart, flight_num),
+    FOREIGN KEY (fid) REFERENCES flight_attendant(fid),
     FOREIGN KEY (proj_depart, flight_num) REFERENCES flight(proj_depart, flight_num)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
