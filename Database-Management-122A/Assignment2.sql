@@ -1,1 +1,2 @@
-π cid (σ gender='female' Customer)
+1) π cid (σ gender='female' Customer)
+2) 
